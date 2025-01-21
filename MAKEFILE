@@ -1,0 +1,26 @@
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -I./include
+LDFLAGS = -lws2_32
+
+# Files
+SRC = src/http_server.c
+OBJ = $(SRC:.c=.o)
+EXEC = http_server
+
+# Main target
+all: $(EXEC)
+
+# Linking
+$(EXEC): $(OBJ)
+    $(CC) $(OBJ) -o $(EXEC) $(LDFLAGS)
+
+# Compiling
+%.o: %.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+# Clean target
+clean:
+    del /F /Q $(subst /,\,$(OBJ)) $(EXEC).exe
+
+.PHONY: all clean
